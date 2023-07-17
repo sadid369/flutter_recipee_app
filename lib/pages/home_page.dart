@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_recipee_app/Widgets/image_frame.dart';
 import 'package:flutter_recipee_app/constant.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,6 +14,7 @@ class HomePage extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.all(25),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: 20,
@@ -30,7 +34,7 @@ class HomePage extends StatelessWidget {
                         style: TextStyle(
                           color: Constant.colors,
                           fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w900,
                         ),
                       ),
                       Text(
@@ -164,57 +168,152 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-                width: double.infinity,
-                height: 170,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
+            Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(Constant.featurePic),
+                    ),
+                  ),
+                  height: 120,
                 ),
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: Image.asset(
-                        Constant.featurePic,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
+                Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    gradient: LinearGradient(
+                      stops: [0.2, 1.0],
+                      begin: FractionalOffset.centerLeft,
+                      end: FractionalOffset.centerRight,
+                      colors: [
+                        Color(0xFFFF3D00).withOpacity(0.8),
+                        Colors.white.withOpacity(0.4),
+                      ],
                     ),
-                    ClipRRect(
-                      // Clip it cleanly.
-                      child: BackdropFilter(
-                        filter: ColorFilter.mode(
-                            Constant.colors.withOpacity(0.5),
-                            BlendMode.softLight),
-                        child: Container(
-                            color: Constant.colors.withOpacity(0.1),
-                            alignment: Alignment.center,
-                            child: Column(
-                              // mainAxisAlignment: MainAxisAlignment.end,
-                              // crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Tuna Salad',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                Text(
-                                  'Welcome',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 40,
+                  left: MediaQuery.of(context).size.width * 0.09,
+                  child: const Text(
+                    "Ingredient",
+                    style: TextStyle(
+                      fontSize: 35,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
                     ),
-                  ],
-                ))
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Popular Recipes',
+                style: TextStyle(
+                  color: Color(
+                    0xFFFF3D00,
+                  ),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 180,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: Constant.rImage.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: EdgeInsets.all(6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.asset(Constant.rImage[index],
+                          width: 120, fit: BoxFit.cover),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(2, 1),
+                    blurRadius: 5,
+                    color: Colors.black.withOpacity(0.2),
+                  ),
+                  BoxShadow(
+                    offset: Offset(2, 1),
+                    blurRadius: 5,
+                    color: Colors.black.withOpacity(0.32),
+                  ),
+                ],
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    shadows: [
+                      BoxShadow(
+                        offset: Offset(0, 2),
+                        blurRadius: 5,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                    ],
+                    Icons.home,
+                    color: Color(0xFFFF3D00),
+                  ),
+                  Icon(
+                    shadows: [
+                      BoxShadow(
+                        offset: Offset(0, 2),
+                        blurRadius: 5,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                    ],
+                    Icons.favorite,
+                    color: Colors.grey,
+                  ),
+                  Icon(
+                    shadows: [
+                      BoxShadow(
+                        offset: Offset(0, 2),
+                        blurRadius: 5,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                    ],
+                    Icons.notifications_sharp,
+                    color: Colors.grey,
+                  ),
+                  Icon(
+                    shadows: [
+                      BoxShadow(
+                        offset: Offset(0, 2),
+                        blurRadius: 5,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                    ],
+                    Icons.account_circle,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

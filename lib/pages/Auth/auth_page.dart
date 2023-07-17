@@ -29,7 +29,6 @@ class _AuthPageState extends State<AuthPage> {
             ),
           ),
           ClipRRect(
-            // Clip it cleanly.
             child: BackdropFilter(
               filter: ColorFilter.mode(Constant.colors, BlendMode.dstIn),
               child: Container(
