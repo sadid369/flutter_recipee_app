@@ -55,7 +55,7 @@ class _AuthPageState extends State<AuthPage> {
                       setState(() {
                         isLoadingLogin = true;
                       });
-                      Timer(Duration(seconds: 2), () {
+                      Timer(Duration(seconds: 0), () {
                         setState(() {
                           isLoadingLogin = false;
                         });

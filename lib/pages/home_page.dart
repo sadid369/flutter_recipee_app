@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_recipee_app/Widgets/image_frame.dart';
 import 'package:flutter_recipee_app/constant.dart';
+import 'package:flutter_recipee_app/pages/recipe_page/category_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -29,12 +30,20 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Hi, Sadid",
-                        style: TextStyle(
-                          color: Constant.colors,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w900,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return CategoryPage();
+                          }));
+                        },
+                        child: Text(
+                          "Hi, Sadid",
+                          style: TextStyle(
+                            color: Constant.colors,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w900,
+                          ),
                         ),
                       ),
                       Text(
