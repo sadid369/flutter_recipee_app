@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_recipee_app/constant.dart';
 import 'package:flutter_recipee_app/model/recipe.dart';
 import 'package:flutter_recipee_app/pages/recipe_page/each_category_page.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +35,10 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: recipe == null
-          ? CircularProgressIndicator()
+          ? Center(
+              child: const CircularProgressIndicator(
+              color: Constant.colors,
+            ))
           : ListView.builder(
               itemCount: recipe!.meals!.length,
               itemBuilder: (context, index) {

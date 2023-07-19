@@ -2,7 +2,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_recipee_app/constant.dart';
 import 'package:flutter_recipee_app/model/recipe.dart';
+import 'package:flutter_recipee_app/pages/recipe_page/recipe_item.dart';
 import 'package:http/http.dart' as http;
 
 class EachCategoryPage extends StatefulWidget {
@@ -39,12 +41,21 @@ class _EachCategoryPageState extends State<EachCategoryPage> {
         title: Text(widget.categoryName),
       ),
       body: recipe == null
-          ? CircularProgressIndicator()
+          ? Center(
+              child: const CircularProgressIndicator(
+              color: Constant.colors,
+            ))
           : ListView.builder(
               itemCount: recipe!.meals!.length,
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RecipeItem(
+                              recipeId:
+                                  recipe!.meals![index].idMeal.toString())));
+                    },
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(
                           recipe!.meals![index].strMealThumb.toString()),
