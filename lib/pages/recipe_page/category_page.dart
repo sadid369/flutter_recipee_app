@@ -36,32 +36,64 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Recipe Category'),
-        backgroundColor: Constant.colors,
-      ),
+      // appBar: AppBar(
+      //   title: Text('Recipe Category'),
+      //   flexibleSpace: Container(
+      //     decoration: const BoxDecoration(
+      //       gradient: LinearGradient(
+      //           begin: Alignment.topCenter,
+      //           end: Alignment.bottomCenter,
+      //           colors: <Color>[Colors.white, Constant.colors]),
+      //     ),
+      //   ),
+      // ),
       body: categorie == null
           ? Center(
               child: const CircularProgressIndicator(
               color: Constant.colors,
             ))
-          : ListView.builder(
-              itemCount: categorie!.categories!.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EachCategoryPage(
-                                    categoryName: categorie!
-                                        .categories![index].strCategory
-                                        .toString(),
-                                  )));
+          : Column(
+              children: [
+                Container(
+                  alignment: Alignment.topLeft,
+                  margin: EdgeInsets.only(top: 50, left: 10),
+                  height: 50,
+                  decoration: BoxDecoration(
+                    // color: Constant.colors.withOpacity(0.4),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
                     },
-                    child: CategoryDisplayCard(
-                        categorie: categorie!, index: index));
-              },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 25,
+                      color: Constant.colors,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: categorie!.categories!.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EachCategoryPage(
+                                          categoryName: categorie!
+                                              .categories![index].strCategory
+                                              .toString(),
+                                        )));
+                          },
+                          child: CategoryDisplayCard(
+                              categorie: categorie!, index: index));
+                    },
+                  ),
+                ),
+              ],
             ),
     );
   }
