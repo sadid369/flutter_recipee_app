@@ -36,17 +36,7 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Recipe Category'),
-      //   flexibleSpace: Container(
-      //     decoration: const BoxDecoration(
-      //       gradient: LinearGradient(
-      //           begin: Alignment.topCenter,
-      //           end: Alignment.bottomCenter,
-      //           colors: <Color>[Colors.white, Constant.colors]),
-      //     ),
-      //   ),
-      // ),
+      backgroundColor: Constant.colors.withOpacity(0.6),
       body: categorie == null
           ? Center(
               child: const CircularProgressIndicator(
@@ -69,7 +59,8 @@ class _CategoryPageState extends State<CategoryPage> {
                     icon: Icon(
                       Icons.arrow_back,
                       size: 25,
-                      color: Constant.colors,
+                      // color: Constant.colors,
+                      color: Colors.white,
                     ),
                   ),
                 ),

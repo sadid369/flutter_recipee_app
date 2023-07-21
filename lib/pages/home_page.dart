@@ -282,17 +282,15 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Positioned(
-                          child: Container(
-                            padding: EdgeInsets.all(25),
-                            child: FittedBox(
-                              child: Text(
-                                recipe!.meals![0].strMeal.toString(),
-                                style: TextStyle(
-                                  fontSize: 35,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w900,
-                                ),
+                        Container(
+                          padding: EdgeInsets.all(25),
+                          child: FittedBox(
+                            child: Text(
+                              recipe!.meals![0].strMeal.toString(),
+                              style: TextStyle(
+                                fontSize: 35,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
                               ),
                             ),
                           ),

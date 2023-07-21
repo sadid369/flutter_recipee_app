@@ -15,41 +15,22 @@ class RecipeCategoryDisplayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(15),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [],
-          border: Border.all(
-            width: 0.5,
-            color: Constant.colors.withOpacity(0.5),
-          )),
-      child: Stack(children: [
-        Container(
-          child: Image.network(
-            recipe.meals![index].strMealThumb.toString(),
-            width: double.infinity,
-            fit: BoxFit.cover,
+    return GridTile(
+      child: Image.network(
+        recipe.meals![index].strMealThumb.toString(),
+      ),
+      footer: Container(
+        padding: EdgeInsets.all(5),
+        height: 40,
+        color: Constant.colors.withOpacity(0.6),
+        child: Center(
+          child: Text(
+            overflow: TextOverflow.ellipsis,
+            recipe.meals![index].strMeal.toString(),
+            style: TextStyle(color: Colors.white),
           ),
         ),
-        Positioned(
-          bottom: 5,
-          child: FittedBox(
-            fit: BoxFit.cover,
-            child: Text(
-              recipe.meals![index].strMeal.toString(),
-              style: TextStyle(
-                letterSpacing: 5,
-                fontSize: 35,
-                color: Constant.colors,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        )
-      ]),
+      ),
     );
   }
 }
