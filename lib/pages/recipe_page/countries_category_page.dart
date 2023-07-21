@@ -2,24 +2,25 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter_recipee_app/Custom%20Widgets/recipe_category_display_card.dart';
 import 'package:flutter_recipee_app/constant.dart';
 import 'package:flutter_recipee_app/model/recipe.dart';
 import 'package:flutter_recipee_app/pages/recipe_page/recipe_item.dart';
-import 'package:http/http.dart' as http;
 
-class EachCategoryPage extends StatefulWidget {
+class CountriesCategoryPage extends StatefulWidget {
   final String categoryName;
-  const EachCategoryPage({
+  const CountriesCategoryPage({
     Key? key,
     required this.categoryName,
   }) : super(key: key);
 
   @override
-  _EachCategoryPageState createState() => _EachCategoryPageState();
+  State<CountriesCategoryPage> createState() => _CountriesCategoryPageState();
 }
 
-class _EachCategoryPageState extends State<EachCategoryPage> {
+class _CountriesCategoryPageState extends State<CountriesCategoryPage> {
   Recipe? recipe;
   @override
   void initState() {
@@ -29,7 +30,7 @@ class _EachCategoryPageState extends State<EachCategoryPage> {
 
   Future<void> getTheCategory({required String name}) async {
     http.Response res = await http.get(Uri.parse(
-        "https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}"));
+        "https://www.themealdb.com/api/json/v1/1/filter.php?a=${name}"));
     recipe = Recipe.fromMap(jsonDecode(res.body));
     setState(() {});
   }
@@ -67,20 +68,3 @@ class _EachCategoryPageState extends State<EachCategoryPage> {
     );
   }
 }
-// Card(
-//                   child: ListTile(
-//                     onTap: () {
-//                       Navigator.of(context).push(MaterialPageRoute(
-//                           builder: (context) => RecipeItem(
-//                               recipeId:
-//                                   recipe!.meals![index].idMeal.toString())));
-//                     },
-//                     leading: CircleAvatar(
-//                       backgroundImage: NetworkImage(
-//                           recipe!.meals![index].strMealThumb.toString()),
-//                     ),
-//                     title: Text(
-//                       recipe!.meals![index].strMeal.toString(),
-//                     ),
-//                   ),
-//                 );

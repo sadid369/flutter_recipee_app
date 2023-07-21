@@ -19,7 +19,7 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        // fit: StackFit.expand,
+        fit: StackFit.expand,
         children: [
           SizedBox(
             height: double.infinity,
@@ -32,8 +32,10 @@ class _AuthPageState extends State<AuthPage> {
             child: BackdropFilter(
               filter: ColorFilter.mode(Constant.colors, BlendMode.dstIn),
               child: Container(
+                // margin: EdgeInsets.only(top: 120),
+                padding: EdgeInsets.only(top: 80),
                 color: Constant.colors.withOpacity(0.1),
-                alignment: Alignment.center,
+                alignment: Alignment.topCenter,
                 child: Text(
                   'Welcome',
                   style: TextStyle(
@@ -46,57 +48,62 @@ class _AuthPageState extends State<AuthPage> {
             ),
           ),
           Positioned(
-            top: 550,
-            left: MediaQuery.of(context).size.width * 0.25,
-            child: CustomButton(
-              title: 'Login',
-              onTap: isLoadingLogin == false
-                  ? () {
-                      setState(() {
-                        isLoadingLogin = true;
-                      });
-                      Timer(Duration(seconds: 0), () {
-                        setState(() {
-                          isLoadingLogin = false;
-                        });
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
-                      });
-                    }
-                  : null,
-              mColor: Constant.colors,
-              mWidth: 200,
-              mHeihth: 60,
+            bottom: 70,
+            right: 0,
+            left: 0,
+            child: Container(
+              // color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomButton(
+                    title: 'Login',
+                    onTap: isLoadingLogin == false
+                        ? () {
+                            setState(() {
+                              isLoadingLogin = true;
+                            });
+                            Timer(Duration(seconds: 0), () {
+                              setState(() {
+                                isLoadingLogin = false;
+                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()));
+                            });
+                          }
+                        : null,
+                    mColor: Constant.colors,
+                    mWidth: 150,
+                    mHeihth: 60,
+                  ),
+                  CustomButton(
+                    title: 'Register',
+                    onTap: isLoadingLogin == false
+                        ? () {
+                            setState(() {
+                              isLoadingLogin = true;
+                            });
+                            Timer(Duration(seconds: 0), () {
+                              setState(() {
+                                isLoadingLogin = false;
+                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()));
+                            });
+                          }
+                        : null,
+                    mColor: Constant.colors,
+                    mWidth: 150,
+                    mHeihth: 60,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Positioned(
-            top: 640,
-            left: MediaQuery.of(context).size.width * 0.25,
-            child: CustomButton(
-              title: 'Register',
-              onTap: isLoadingRegister == false
-                  ? () {
-                      setState(() {
-                        isLoadingRegister = true;
-                      });
-                      Timer(Duration(seconds: 2), () {
-                        setState(() {
-                          isLoadingRegister = false;
-                        });
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
-                      });
-                    }
-                  : null,
-              mColor: Constant.colors,
-              mWidth: 200,
-              mHeihth: 60,
-            ),
-          ),
+          )
         ],
       ),
     );

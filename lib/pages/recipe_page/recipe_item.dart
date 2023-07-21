@@ -110,7 +110,7 @@ class _RecipeItemState extends State<RecipeItem> {
                     height: 400,
                     width: 350,
                     decoration: BoxDecoration(
-                      color: Constant.colors,
+                      color: Constant.colors.withOpacity(0.7),
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(60),
                       ),
