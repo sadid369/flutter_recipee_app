@@ -31,10 +31,29 @@ class _RecipeItemState extends State<RecipeItem> {
       http.Response res = await http.get(Uri.parse(
           "https://www.themealdb.com/api/json/v1/1/lookup.php?i=$id"));
       recipe = Recipe.fromMap(jsonDecode(res.body));
+      iterateMap();
     } catch (e) {
       print(e.toString());
     }
     setState(() {});
+  }
+
+  List<Map<String, dynamic>> ingredient = [];
+  // List<String> measure = [];
+  void iterateMap() {
+    recipe!.meals![0].toMap().forEach(
+      (key, value) {
+        if (key.contains("strIngredient") || key.contains("strMeasure")) {
+          if ((value as String).isNotEmpty) {
+            if (!(value as String).contains(RegExp(r'/^\s+$|^$/gi'))) {
+              ingredient.add({key: "$value"});
+            }
+          }
+        }
+      },
+    );
+
+    // print(measure.length);
   }
 
   @override
@@ -107,77 +126,98 @@ class _RecipeItemState extends State<RecipeItem> {
                   bottom: 0,
                   child: Container(
                     padding: EdgeInsets.only(left: 25, right: 45),
-                    height: 400,
+                    height: 500,
                     width: 350,
                     decoration: BoxDecoration(
-                      color: Constant.colors.withOpacity(0.7),
+                      color: Constant.colors.withOpacity(0.4),
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(60),
                       ),
                     ),
                     child: Column(
                       children: [
+                        // Container(
+                        //   margin: EdgeInsets.only(top: 25),
+                        //   // padding: EdgeInsets.only(right: 25, left: 25),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       Container(
+                        //         width: MediaQuery.of(context).size.width * 0.15,
+                        //         child: Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceEvenly,
+                        //           children: [
+                        //             Icon(
+                        //               Icons.star,
+                        //               color: Colors.white,
+                        //               size: 20,
+                        //             ),
+                        //             Text(
+                        //               "4.8",
+                        //               style: TextStyle(color: Colors.white),
+                        //             )
+                        //           ],
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //         width: MediaQuery.of(context).size.width * 0.15,
+                        //         child: Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceEvenly,
+                        //           children: [
+                        //             Icon(
+                        //               Icons.message,
+                        //               color: Colors.white,
+                        //               size: 20,
+                        //             ),
+                        //             Text(
+                        //               "604",
+                        //               style: TextStyle(color: Colors.white),
+                        //             )
+                        //           ],
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //         width: MediaQuery.of(context).size.width * 0.15,
+                        //         child: Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceEvenly,
+                        //           children: [
+                        //             Icon(
+                        //               Icons.timer,
+                        //               color: Colors.white,
+                        //               size: 20,
+                        //             ),
+                        //             Text(
+                        //               "4.8",
+                        //               style: TextStyle(color: Colors.white),
+                        //             )
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        SizedBox(
+                          height: 25,
+                        ),
                         Container(
-                          margin: EdgeInsets.only(top: 25),
-                          // padding: EdgeInsets.only(right: 25, left: 25),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                    Text(
-                                      "4.8",
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(
-                                      Icons.message,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                    Text(
-                                      "604",
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(
-                                      Icons.timer,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                    Text(
-                                      "4.8",
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
+                          alignment: Alignment.topLeft,
+                          child: const Text(
+                            'Recipe',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: FittedBox(
+                            child: Text(recipe!.meals![0].strMeal.toString(),
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.white)),
                           ),
                         ),
                         SizedBox(
@@ -186,19 +226,8 @@ class _RecipeItemState extends State<RecipeItem> {
                         Container(
                           alignment: Alignment.topLeft,
                           child: const Text(
-                            'Recipe',
-                            style: TextStyle(fontSize: 10, color: Colors.white),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: FittedBox(
-                            child: Text(recipe!.meals![0].strMeal.toString(),
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.white)),
+                            'Ingredient',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                         ),
                       ],
